@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import constraints
 from django.db.models.query_utils import Q
 
 User = get_user_model()
@@ -45,3 +46,4 @@ class Comment(models.Model):
 class Follow(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+    

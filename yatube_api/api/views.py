@@ -1,7 +1,8 @@
+from django.core.exceptions import ValidationError
 from rest_framework import viewsets, filters, mixins
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .serializers import PostSerializer, CustomUserSerializer, CommentSerializer, GroupSerializer, FollowSerializer
+from rest_framework.permissions import BasePermission, IsAuthenticatedOrReadOnly
+from .serializers import PostSerializer, UserSerializer, CommentSerializer, GroupSerializer, FollowSerializer
 from posts.models import Post, User, Group, Follow
 from djoser.views import UserViewSet
 from .permissions import IsAuthOnly, IsAuthorOrReadOnly
@@ -16,9 +17,10 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-class CustomUserViewSet(UserViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = CustomUserSerializer
+    serializer_class = UserSerializer
+    permission_classes = (BasePermission,)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -50,17 +52,13 @@ class GroupViewSet(OnlyGETGroup):
 
 
 class FollowViewSet(viewsets.ModelViewSet):
-    queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     permission_classes = (IsAuthOnly,)
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('=following__username',)
+    search_fields = ('=user__username', '=following__username',)
+
+    def get_queryset(self):
+        return Follow.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-    def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated
-        )
-
