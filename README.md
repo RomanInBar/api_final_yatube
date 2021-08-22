@@ -50,14 +50,30 @@ ___(ко всему, кроме подписок пользователя)___.
 
 Для доступа ко всему функционалу API необходимо получить токен.
 Нужно выполнить POST запрос на `/api/v1/token`, передав `username` и `password`___(активный аккаунт)___. API вернёт JWT-токен.
-![POST запрос на получение токена. (VSCode)](https://ibb.co/Q8mJf8X)
+POST запрос на получение токена. (VSCode):
+```
+POST http://127.0.0.1:8000/api/v1/token
+Content-Type: application/json
 
+{
+    "username": "Username",
+    "password": "password"
+}
+```
 
 Дальше, передав токен, можно будет обращаться к методам, например:
 `(GET, POST, PATCH, PUT, DELETE) https://localhost/api/v1/posts/`
 
 При отправке запроса, не забывайте передавать токен:
 `Authorization: Bearer <токен>`
-![POST запрос на создание поста. (VSCode)]([url=https://ibb.co/zsZpWgp][img]https://i.ibb.co/zsZpWgp/POST2.png[/img][/url])
+POST запрос на создание поста. (VSCode)
+```
+POST http://127.0.0.1:8000/api/v1/posts/
+Authorization: Bearer <ваш токен>
+Content-Type: application/json
 
+{
+    "text": "string"
+}
+```
 
