@@ -5,13 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('posts', '0002_follow_unique_user_following'),
-    ]
+    dependencies = [('posts', '0002_follow_unique_user_following')]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='follow',
-            name='unique_user_following',
-        ),
+            model_name='follow', name='unique_user_following'
+        )
     ]
