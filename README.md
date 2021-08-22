@@ -50,7 +50,7 @@ ___(ко всему, кроме подписок пользователя)___.
 
 Для доступа ко всему функционалу API необходимо получить токен.
 Нужно выполнить POST запрос на `/api/v1/token`, передав `username` и `password`___(активный аккаунт)___. API вернёт JWT-токен.
-![Alt-POST запрос на получение токена. (VSCode)](https://disk.yandex.ru/client/disk?idApp=client&dialog=slider&idDialog=%2Fdisk%2FPOST.png)
+![POST запрос на получение токена. (VSCode)](https://ibb.co/Q8mJf8X)
 
 
 Дальше, передав токен, можно будет обращаться к методам, например:
@@ -58,6 +58,6 @@ ___(ко всему, кроме подписок пользователя)___.
 
 При отправке запроса, не забывайте передавать токен:
 `Authorization: Bearer <токен>`
-![Alt-POST запрос на создание поста. (VSCode)](https://disk.yandex.ru/client/disk?idApp=client&dialog=slider&idDialog=%2Fdisk%2FPOST2.png)
+![POST запрос на создание поста. (VSCode)](https://ibb.co/zsZpWgp)
 
 
